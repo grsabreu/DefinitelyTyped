@@ -67,6 +67,7 @@ declare const got: got.GotFn &
     {
         stream: got.GotStreamFn & Record<'get' | 'post' | 'put' | 'patch' | 'head' | 'delete', got.GotStreamFn>;
         RequestError: typeof RequestError;
+      extend(options: got.GotOptions<string | null>): Record<'get' | 'post' | 'put' | 'patch' | 'head' | 'delete', got.GotFn>;
         ReadError: typeof ReadError;
         ParseError: typeof ParseError;
         HTTPError: typeof HTTPError;
@@ -82,7 +83,7 @@ interface InternalRequestOptions extends https.RequestOptions {
 }
 
 declare namespace got {
-    interface GotFn {
+  interface GotFn {
         (url: GotUrl): GotPromise<string>;
         (url: GotUrl, options: GotJSONOptions): GotPromise<any>;
         (url: GotUrl, options: GotFormOptions<string>): GotPromise<string>;
@@ -123,6 +124,7 @@ declare namespace got {
         cache?: Cache;
         agent?: http.Agent | boolean | AgentOptions;
         throwHttpErrors?: boolean;
+        baseUrl?: string;
     }
 
     interface TimeoutOptions {
